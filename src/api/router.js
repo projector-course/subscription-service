@@ -1,11 +1,20 @@
 const Router = require('@koa/router');
-const { getHealth } = require('./controllers/getHealth');
+const { PREFIX: prefix } = require('../services/configService');
+const { getHealthRoute } = require('./routes/health/getHealthRoute');
+const { subscriptionsRouter } = require('./routes/subscriptions');
 
-const router = new Router();
+const router = new Router({ prefix });
 
-router.get('/health', async (ctx) => {
-  ctx.log.debug('ROUTE: %s', ctx.path);
-  ctx.body = await getHealth();
-});
+/*
+  - GET     /subscriptions/health
+
+  - POST    /subscriptions { data: { userId, subscriptionId } } => создаём подписку
+  - GET     /subscriptions ? userId=&limit=                     => получаем подписки юзера
+  - DELETE  /subscriptions / :id                                => удаляем подписку
+*/
+
+router
+  .get('/health', getHealthRoute)
+  .use(subscriptionsRouter.routes(), subscriptionsRouter.allowedMethods());
 
 module.exports = { router };
