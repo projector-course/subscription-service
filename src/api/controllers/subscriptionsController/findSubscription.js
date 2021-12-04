@@ -4,12 +4,10 @@ const db = require('../../../db/models');
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-const findSubscription = async (userId, subscriptionId) => {
-  const result = await db.subscriptions.findOne({
-    where: { userId, subscriptionId },
+function findSubscription(subscription) {
+  return db.subscriptions.findOne({
+    where: subscription,
   });
-
-  return result;
-};
+}
 
 module.exports = { findSubscription };

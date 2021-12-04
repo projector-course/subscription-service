@@ -5,7 +5,7 @@ const { get } = require('../utils/httpRequest');
 const logger = getModuleLogger(module);
 logger.debug('SERVICE CREATED');
 
-function getUser(userId) {
+function getUser({ userId }) {
   const url = `${GATEWAY_URL}${USER_SERVICE_PREFIX}/${userId}`;
   logger.debug(url);
   return get(url);

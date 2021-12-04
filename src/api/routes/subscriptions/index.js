@@ -1,6 +1,7 @@
 const Router = require('@koa/router');
-const { verifyData } = require('../../../middlewares/verifyData');
-const { verifyUser } = require('../../../middlewares/verifyUser');
+const { verifySubscriptionData } = require('../../../middlewares/verifySubscriptionData');
+const { verifyQuery } = require('../../../middlewares/verifyQuery');
+const { verifyParams } = require('../../../middlewares/verifyParams');
 const { postSubscriptionsRoute } = require('./postSubscriptionsRoute');
 const { getSubscriptionsRoute } = require('./getSubscriptionsRoute');
 const { delSubscriptionsRoute } = require('./delSubscriptionsRoute');
@@ -8,8 +9,8 @@ const { delSubscriptionsRoute } = require('./delSubscriptionsRoute');
 const router = new Router();
 
 router
-  .post('/', verifyData, postSubscriptionsRoute)
-  .get('/', verifyUser, getSubscriptionsRoute)
-  .delete('/:id', delSubscriptionsRoute);
+  .post('/', verifySubscriptionData, postSubscriptionsRoute)
+  .get('/', verifyQuery, getSubscriptionsRoute)
+  .delete('/:id', verifyParams, delSubscriptionsRoute);
 
 module.exports = { subscriptionsRouter: router };

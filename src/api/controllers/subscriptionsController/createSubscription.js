@@ -4,15 +4,8 @@ const db = require('../../../db/models');
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-const createSubscription = async (userId, subscriptionId) => {
-  const result = await db.subscriptions.create({
-    userId,
-    subscriptionId,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
-  return result;
-};
+function createSubscription(subscription) {
+  return db.subscriptions.create(subscription);
+}
 
 module.exports = { createSubscription };
