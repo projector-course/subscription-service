@@ -9,18 +9,22 @@ const isLimit = Joi.custom((limit, helpers) => {
   return value;
 });
 
-const paramsSchema = Joi.object({
-  id: isId,
-});
-
-const querySchema = Joi.object({
-  userId: isId,
-  limit: isLimit,
-});
-
 const createSubscriptionSchema = Joi.object({
   userId: isId,
   subscriptionId: isId,
 });
 
-module.exports = { createSubscriptionSchema, paramsSchema, querySchema };
+const getSubscriptionSchema = Joi.object({
+  userId: isId,
+  limit: isLimit,
+});
+
+const delSubscriptionSchema = Joi.object({
+  id: isId,
+});
+
+module.exports = {
+  createSubscriptionSchema,
+  getSubscriptionSchema,
+  delSubscriptionSchema,
+};

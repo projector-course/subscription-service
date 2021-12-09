@@ -6,8 +6,8 @@ logger.debug('CONTROLLER CREATED');
 
 function getSubscriptions({ userId, limit }) {
   return db.subscriptions.findAll({
-    limit,
-    where: { userId },
+    limit: +limit || undefined,
+    where: { userId: +userId },
   });
 }
 

@@ -4,9 +4,9 @@ const db = require('../../../db/models');
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-function findSubscription(subscription) {
+function findSubscription(data) {
   return db.subscriptions.findOne({
-    where: subscription,
+    where: data,
   });
 }
 
