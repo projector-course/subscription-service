@@ -8,9 +8,9 @@ const router = new Router({ prefix });
 /*
   - GET     /subscriptions/health
 
-  - POST    /subscriptions { data: { userId, subscriptionId } } => создаём подписку
-  - GET     /subscriptions ? userId=&limit=                     => получаем подписки юзера
-  - DELETE  /subscriptions / :id                                => удаляем подписку
+  - POST    /subscriptions { data: { subscriptionId } } => создаём подписку
+  - GET     /subscriptions ? userId=&limit=             => получаем подписки юзера
+  - DELETE  /subscriptions / :id                        => удаляем подписку
 */
 
 router

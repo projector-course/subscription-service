@@ -1,6 +1,6 @@
 const { getModuleLogger } = require('../../../services/logService');
 const { findSubscription } = require('./findSubscription');
-const { VERIFICATION_ERROR_TYPE, VerificationError } = require('../../../errors/verificationError');
+const { SubscriptionExistError, SubscriptionUserNotFound } = require('../../../errors');
 const gateway = require('../../../services/gatewayService');
 const db = require('../../../db/models');
 
@@ -9,14 +9,14 @@ logger.debug('CONTROLLER CREATED');
 
 async function createSubscription(data) {
   const subscription = await findSubscription(data);
-  if (subscription) throw new VerificationError(VERIFICATION_ERROR_TYPE.EXIST_ERROR, 'Subscription already exist');
+  if (subscription) throw new SubscriptionExistError();
 
   const { subscriptionId } = data;
   const user = await gateway.getUser(subscriptionId);
 
-  if (user) return db.subscriptions.create(data);
+  if (!user) throw new SubscriptionUserNotFound();
 
-  throw new VerificationError(VERIFICATION_ERROR_TYPE.NOT_FOUND_ERROR, 'Subscription user not exist');
+  return db.subscriptions.create(data);
 }
 
 module.exports = { createSubscription };
