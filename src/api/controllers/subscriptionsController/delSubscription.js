@@ -4,9 +4,9 @@ const db = require('../../../db/models');
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-function delSubscription({ id }) {
+function delSubscription(userId, id) {
   return db.subscriptions.destroy({
-    where: { id },
+    where: { userId, id },
   });
 }
 

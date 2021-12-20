@@ -10,12 +10,10 @@ const isLimit = Joi.custom((limit, helpers) => {
 });
 
 const createSubscriptionSchema = Joi.object({
-  userId: isId,
   subscriptionId: isId,
 });
 
 const getSubscriptionSchema = Joi.object({
-  userId: isId,
   limit: isLimit,
 });
 

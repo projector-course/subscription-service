@@ -2,9 +2,10 @@ const { createSubscriptionSchema, getSubscriptionSchema, delSubscriptionSchema }
 
 const validate = {
   post: async (ctx, next) => {
-    const { request: { body } } = ctx;
+    const { user, request: { body } } = ctx;
     const { error } = createSubscriptionSchema.validate(body);
     if (error) ctx.throw(400, error.message);
+    if (user.id === body.subscriptionId) ctx.throw(400, 'Subscription user must be different');
     await next();
   },
 
